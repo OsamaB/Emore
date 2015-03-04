@@ -7,10 +7,8 @@ import se.emore.ecommerce.exception.RepositoryException;
 public interface UserLogic {
 	
 	public int addUser(User user) throws RepositoryException;
-	public void getUser(Long userId) throws RepositoryException;
-	public void updateUser(User user) throws RepositoryException;
-	public void removeUser(Long userId) throws RepositoryException;
+	public User getUser(int userId) throws RepositoryException;
+	public int updateUser(User user) throws RepositoryException;
+	public int removeUser(int userId) throws RepositoryException;
 	
-	public void addToShoppingCart(Product product);
-	public void removeFromShoppingCart(Long productId);
 }

@@ -2,12 +2,21 @@ package se.emore.ecommerce;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class User {
 	private String username;
 	private String password;
-	private int id;
 	private Map<Long, Product> shoppingCart = new HashMap<>();
+	private static final AtomicInteger atomicInteger = new AtomicInteger(1000);
+	private final int id;
+	
+	
+	public User(String username, String password) {
+		this.username = username;
+		this.password = password;
+		this.id = atomicInteger.incrementAndGet();
+	}
 	
 	public User(String username, String password, int id) {
 		this.username = username;
