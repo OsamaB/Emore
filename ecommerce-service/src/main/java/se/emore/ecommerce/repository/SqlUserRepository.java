@@ -56,13 +56,20 @@ public class SqlUserRepository implements UserLogic {
 	public User getUser(int userId) throws RepositoryException {
 		try (final Connection connection = getConnection()) {
 			try (PreparedStatement stmt = connection
-					.prepareStatement("SELECT id, username, password FROM user WHERE id = ?")) {
+					.prepareStatement("SELECT * FROM user WHERE id = ?")) {
 				stmt.setInt(1, userId);
 
 				ResultSet rs = stmt.executeQuery();
 
 				if (rs.next()) {
 					System.out.println(rs.getString("username") + " Shablaa   " + rs.getString("password"));
+					System.out.println(rs.getInt("id"));
+					System.out.println(rs.getString("username"));
+					System.out.println(rs.getArray("username"));
+					System.out.println(rs.getAsciiStream("username"));
+					System.out.println(rs.getNString("username"));
+					
+					System.out.println(rs.getString("password"));
 					User user = new User(rs.getString(2), rs.getString(3));
 					user.setUserId(rs.getInt("id"));
 					return user;
