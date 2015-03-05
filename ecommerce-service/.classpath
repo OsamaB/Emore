@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+<<<<<<< HEAD
   <classpathentry kind="src" path="src/main/java" including="**/*.java"/>
   <classpathentry kind="output" path="target/classes"/>
   <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
   <classpathentry kind="var" path="M2_REPO/se/emore/ecommerce-model/1.0-SNAPSHOT/ecommerce-model-1.0-SNAPSHOT.jar"/>
 </classpath>
+=======
+	<classpathentry including="**/*.java" kind="src" path="src/main/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="var" path="M2_REPO/se/emore/ecommerce-model/1.0-SNAPSHOT/ecommerce-model-1.0-SNAPSHOT.jar"/>
+	<classpathentry kind="var" path="M2_REPO/mysql/mysql-connector-java/5.1.6/mysql-connector-java-5.1.6.jar"/>
+	<classpathentry kind="var" path="M2_REPO/se/emore/ecommerce-service/1.0-SNAPSHOT/ecommerce-service-1.0-SNAPSHOT.jar"/>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>
+>>>>>>> 0ab68daa8c41fe56d77135b2cf8471a84882d74e

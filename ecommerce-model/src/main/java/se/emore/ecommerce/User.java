@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class User {
 	private String username;
 	private String password;
+
 	private int id;
 	
 	ArrayList<Product> products = new ArrayList<>();

@@ -61,5 +61,12 @@
     <dependent-module archiveName="ecommerce-model-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/se/emore/ecommerce-model/1.0-SNAPSHOT/ecommerce-model-1.0-SNAPSHOT.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>
+<<<<<<< HEAD
+=======
+    <dependent-module archiveName="mysql-connector-java-5.1.6.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/mysql/mysql-connector-java/5.1.6/mysql-connector-java-5.1.6.jar">
+      <dependency-type>uses</dependency-type>
+    </dependent-module>
+    <wb-resource deploy-path="/WEB-INF/classes" source-path="src/main/java"/>
+>>>>>>> 0ab68daa8c41fe56d77135b2cf8471a84882d74e
   </wb-module>
 </project-modules>

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /Users/Osama/Documents/Kurs/Uppgifter/Emore/ecommerce-service/src/main/java/se/emore/ecommerce/repository/SqlUserRepository.java
 /Users/Osama/Documents/Kurs/Uppgifter/Emore/ecommerce-service/src/main/java/se/emore/ecommerce/exception/RepositoryException.java
 /Users/Osama/Documents/Kurs/Uppgifter/Emore/ecommerce-service/src/main/java/se/emore/ecommerce/repository/OrderRepository.java
@@ -6,3 +7,13 @@
 /Users/Osama/Documents/Kurs/Uppgifter/Emore/ecommerce-service/src/main/java/se/emore/ecommerce/logic/OrderLogic.java
 /Users/Osama/Documents/Kurs/Uppgifter/Emore/ecommerce-service/src/main/java/se/emore/ecommerce/logic/UserLogic.java
 /Users/Osama/Documents/Kurs/Uppgifter/Emore/ecommerce-service/src/main/java/se/emore/ecommerce/Main.java
+=======
+/Users/ericlantz/Documents/Kurser/web2/projekt/stort-projekt/Emore/ecommerce-service/src/main/java/se/emore/ecommerce/Main.java
+/Users/ericlantz/Documents/Kurser/web2/projekt/stort-projekt/Emore/ecommerce-service/src/main/java/se/emore/ecommerce/exception/RepositoryException.java
+/Users/ericlantz/Documents/Kurser/web2/projekt/stort-projekt/Emore/ecommerce-service/src/main/java/se/emore/ecommerce/logic/OrderLogic.java
+/Users/ericlantz/Documents/Kurser/web2/projekt/stort-projekt/Emore/ecommerce-service/src/main/java/se/emore/ecommerce/repository/SqlUserRepository.java
+/Users/ericlantz/Documents/Kurser/web2/projekt/stort-projekt/Emore/ecommerce-service/src/main/java/se/emore/ecommerce/repository/SqlProductRepository.java
+/Users/ericlantz/Documents/Kurser/web2/projekt/stort-projekt/Emore/ecommerce-service/src/main/java/se/emore/ecommerce/logic/ProductLogic.java
+/Users/ericlantz/Documents/Kurser/web2/projekt/stort-projekt/Emore/ecommerce-service/src/main/java/se/emore/ecommerce/repository/OrderRepository.java
+/Users/ericlantz/Documents/Kurser/web2/projekt/stort-projekt/Emore/ecommerce-service/src/main/java/se/emore/ecommerce/logic/UserLogic.java
+>>>>>>> 0ab68daa8c41fe56d77135b2cf8471a84882d74e

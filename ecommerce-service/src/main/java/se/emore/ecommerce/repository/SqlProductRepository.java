@@ -135,6 +135,4 @@ public class SqlProductRepository implements ProductLogic{
 			throw new RepositoryException("Could not connect to DB", e);
 		}
 	}
-	}
-
-
+}

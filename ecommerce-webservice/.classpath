@@ -85,4 +85,5 @@
   </classpathentry>
   <classpathentry kind="var" path="M2_REPO/se/emore/ecommerce-service/1.0-SNAPSHOT/ecommerce-service-1.0-SNAPSHOT.jar"/>
   <classpathentry kind="var" path="M2_REPO/se/emore/ecommerce-model/1.0-SNAPSHOT/ecommerce-model-1.0-SNAPSHOT.jar"/>
+  <classpathentry kind="var" path="M2_REPO/mysql/mysql-connector-java/5.1.6/mysql-connector-java-5.1.6.jar"/>
 </classpath>
