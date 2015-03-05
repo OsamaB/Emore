@@ -8,14 +8,7 @@ public final class Product {
 	public Product(String productName, double price) {
 		this.productName = productName;
 		this.price = price;
-	}
-	
-	public Product(String productName, int productId, double price) {
-		this.productName = productName;
-		this.productId = productId;
-		this.price = price;
-	}
-	
+	}	
 
 	public String getProductName() {
 		return productName;
@@ -28,6 +21,10 @@ public final class Product {
 	
 	public double getProductPrice() {
 		return price;
+	}
+	
+	public void setProductId(int sqlProductId) {
+		productId = sqlProductId;
 	}
 
 	@Override

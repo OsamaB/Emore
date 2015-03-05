@@ -4,22 +4,26 @@ import java.util.Date;
 
 public final class Order {
 	
-	private Long orderId;
-	private Long userId;
-	private Date date = new Date(System.currentTimeMillis());
+	private int orderId;
+	private int userId;
+	private Date date;
 	
-	public Order(Long orderId, Long userId, Date date) {
+	public Order(int orderId, int userId) {
 		this.orderId = orderId;
 		this.userId = userId;
-		this.date = date;
+		this.date = new Date(System.currentTimeMillis());
 	}
 
-	public Long getUserId() {
+	public int getUserId() {
 		return userId;
 	}
 
-	public Long getOrderId() {
+	public int getOrderId() {
 		return orderId;
+	}
+	
+	public void setOrderId(int sqlOrderId) {
+		orderId = sqlOrderId;
 	}
 
 	public Date getDate() {
