@@ -1,5 +1,7 @@
 package se.emore.ecommerce;
 
+import java.util.Map;
+
 import se.emore.ecommerce.exception.RepositoryException;
 import se.emore.ecommerce.repository.SqlProductRepository;
 import se.emore.ecommerce.repository.SqlUserRepository;
@@ -16,6 +18,20 @@ public class Main {
 		int id = new SqlUserRepository().addUser(user);
 		
 		System.out.println(user.getId());
+		
+		Product product = new Product("Osama", 2500);
+		int productId = new SqlProductRepository().addProduct(product);
+		
+		System.out.println(productId);
+		
+		user.addToShoppingCart(new SqlProductRepository().getProduct(6));
+		user.addToShoppingCart(new SqlProductRepository().getProduct(4));		
+		
+		for(Map.Entry<Integer, Product> productKey : user.getShoppingCart().entrySet()) {
+			System.out.println(productKey.getValue().getProductName());
+		}
+		
+		
 		
 		
 //		int id = new SqlUserRepository().updateUser(user);

@@ -8,7 +8,7 @@ public class User {
 	private String username;
 	private String password;
 	private Map<Integer, Product> shoppingCart = new HashMap<>();
-	private static final AtomicInteger productIdAtomicInteger = new AtomicInteger(1000);
+	private static final AtomicInteger productIdAtomicInteger = new AtomicInteger();
 	private int id;
 	
 	public User(String username, String password) {

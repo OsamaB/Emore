@@ -32,6 +32,7 @@ public class SqlProductRepository implements ProductLogic{
 					ResultSet rs = stmt.getGeneratedKeys();
 					if(rs.next()) {
 						connection.commit();
+						product.setProductId(rs.getInt(1));
 						return rs.getInt(1);
 					}
 				}
@@ -60,7 +61,7 @@ public class SqlProductRepository implements ProductLogic{
 				ResultSet rs = stmt.executeQuery();
 				
 				if(rs.next()) {
-					return new Product(rs.getString(2), rs.getInt(1), rs.getDouble(3));
+					return new Product(rs.getString(2), rs.getDouble(3));
 				}
 				
 			}
@@ -134,6 +135,4 @@ public class SqlProductRepository implements ProductLogic{
 			throw new RepositoryException("Could not connect to DB", e);
 		}
 	}
-	}
-
-
+}
