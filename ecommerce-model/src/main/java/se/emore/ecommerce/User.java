@@ -7,21 +7,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class User {
 	private String username;
 	private String password;
-	private Map<Long, Product> shoppingCart = new HashMap<>();
-	private static final AtomicInteger atomicInteger = new AtomicInteger(1000);
-	private final int id;
-	
+	private Map<Integer, Product> shoppingCart = new HashMap<>();
+	private static final AtomicInteger productIdAtomicInteger = new AtomicInteger(1000);
+	private int id;
 	
 	public User(String username, String password) {
 		this.username = username;
 		this.password = password;
-		this.id = atomicInteger.incrementAndGet();
-	}
-	
-	public User(String username, String password, int id) {
-		this.username = username;
-		this.password = password;
-		this.id = id;
 	}
 
 	public String getUsername() {
@@ -36,8 +28,16 @@ public class User {
 		return id;
 	}
 	
-	public Map<Long, Product> getShoppingCart() {
+	public void setUserId(int sqlUserId) {
+		id = sqlUserId;
+	}
+	
+	public Map<Integer, Product> getShoppingCart() {
 		return shoppingCart;
+	}
+	
+	public void addToShoppingCart(Product product) {
+		shoppingCart.put(productIdAtomicInteger.incrementAndGet(), product);
 	}
 	
 }

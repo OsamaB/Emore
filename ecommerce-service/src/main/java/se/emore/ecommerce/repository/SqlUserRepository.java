@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+
 import se.emore.ecommerce.*;
 import se.emore.ecommerce.exception.RepositoryException;
 import se.emore.ecommerce.logic.*;
@@ -13,7 +15,7 @@ public final class SqlUserRepository implements UserLogic {
 	
 	private final String URL = "jdbc:mysql://127.0.0.1:3306/emore";
 	private final String username = "root";
-	private final String password = "";	
+	private final String password = "";
 	
 	@Override
 	public int addUser(User user) throws RepositoryException {
@@ -21,15 +23,20 @@ public final class SqlUserRepository implements UserLogic {
 		try (final Connection connection = DriverManager.getConnection(URL, username, password))
 		{
 			connection.setAutoCommit(false);
-			try (PreparedStatement stmt = connection.prepareStatement("INSERT INTO user VALUES(?, ?, ?)")) {
-				stmt.setInt(1, user.getId());
-				stmt.setString(2, user.getUsername());
-				stmt.setString(3, user.getPassword());
-			
-				if (stmt.executeUpdate() == 1)
-				{
+			try (PreparedStatement stmt = connection.prepareStatement("INSERT INTO user VALUES(null, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
+				stmt.setString(1, user.getUsername());
+				stmt.setString(2, user.getPassword());
+				
+				int affectedRows = stmt.executeUpdate();
+
+				if (affectedRows == 1) {
+					ResultSet rs = stmt.getGeneratedKeys();
 					connection.commit();
-					return user.getId();
+					
+					if(rs.next()) {
+						user.setUserId(rs.getInt(1));
+						return rs.getInt(1);
+					}				
 				}
 			}
 			catch (SQLException e)
@@ -56,7 +63,7 @@ public final class SqlUserRepository implements UserLogic {
 				ResultSet rs = stmt.executeQuery();
 				
 				if(rs.next()) {
-					return new User(rs.getString(2), rs.getString(3), rs.getInt(1));
+					return new User(rs.getString(2), rs.getString(3));
 				}
 				
 			}
