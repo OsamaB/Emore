@@ -1,15 +1,13 @@
 package se.emore.ecommerce;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.ArrayList;
 
 public class User {
 	private String username;
 	private String password;
-	private Map<Integer, Product> shoppingCart = new HashMap<>();
-	private static final AtomicInteger productIdAtomicInteger = new AtomicInteger(1000);
 	private int id;
+	
+	ArrayList<Product> products = new ArrayList<>();
 	
 	public User(String username, String password) {
 		this.username = username;
@@ -32,12 +30,18 @@ public class User {
 		id = sqlUserId;
 	}
 	
-	public Map<Integer, Product> getShoppingCart() {
-		return shoppingCart;
+	public ArrayList<Product> getProducts()
+	{
+		return products;
 	}
 	
-	public void addToShoppingCart(Product product) {
-		shoppingCart.put(productIdAtomicInteger.incrementAndGet(), product);
+	public void addProduct(Product product)
+	{
+		products.add(product);
 	}
 	
+	public void removeProduct(Product product)
+	{
+		products.remove(product);
+	}
 }
