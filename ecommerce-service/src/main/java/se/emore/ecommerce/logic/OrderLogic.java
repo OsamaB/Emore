@@ -1,10 +1,12 @@
 package se.emore.ecommerce.logic;
 
-import se.emore.ecommerce.Order;
+import java.util.Map;
+
+import se.emore.ecommerce.Product;
 
 public interface OrderLogic {
 	
-	public void addOrder(Order order);
-	public void removeOrder(Long orderId);
-	public void getOrder(Long orderId);
+	public void addOrder(Map<Integer, Product> map);
+	public void removeOrder(int orderId);
+	public Map<Integer, Product> getOrder(int orderId);
 }

@@ -2,3 +2,6 @@
 
 // Mac-files
 .DS_Store
+
+//Compiled files
+*.class
