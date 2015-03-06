@@ -1,5 +1,5 @@
 package se.emore.ecommerce.jaxrs.service;
 
-public class ProductServlet {
+public class ProductService {
 
 }

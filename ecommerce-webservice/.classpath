@@ -79,9 +79,9 @@
       <attribute value="jar:file:/Users/ericlantz/.m2/repository/org/glassfish/jersey/media/jersey-media-jaxb/2.16/jersey-media-jaxb-2.16-javadoc.jar!/" name="javadoc_location"/>
     </attributes>
   </classpathentry>
-  <classpathentry kind="var" path="M2_REPO/com/google/code/gson/gson/2.3.1/gson-2.3.1.jar" sourcepath="M2_REPO/com/google/code/gson/gson/2.3.1/gson-2.3.1-sources.jar">
+  <classpathentry kind="var" path="M2_REPO/com/sun/xml/bind/jaxb-impl/2.2.11/jaxb-impl-2.2.11.jar" sourcepath="M2_REPO/com/sun/xml/bind/jaxb-impl/2.2.11/jaxb-impl-2.2.11-sources.jar">
     <attributes>
-      <attribute value="jar:file:/Users/ericlantz/.m2/repository/com/google/code/gson/gson/2.3.1/gson-2.3.1-javadoc.jar!/" name="javadoc_location"/>
+      <attribute value="jar:file:/Users/ericlantz/.m2/repository/com/sun/xml/bind/jaxb-impl/2.2.11/jaxb-impl-2.2.11-javadoc.jar!/" name="javadoc_location"/>
     </attributes>
   </classpathentry>
   <classpathentry kind="var" path="M2_REPO/se/emore/ecommerce-service/1.0-SNAPSHOT/ecommerce-service-1.0-SNAPSHOT.jar"/>

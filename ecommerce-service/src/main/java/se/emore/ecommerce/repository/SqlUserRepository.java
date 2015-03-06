@@ -20,9 +20,7 @@ public class SqlUserRepository implements UserLogic {
 	@Override
 	public int addUser(User user) throws RepositoryException {
 
-		System.out.println("innan connection");
 		try (final Connection connection = getConnection()) {
-			System.out.println("efter connection");
 			connection.setAutoCommit(false);
 			try (PreparedStatement stmt = connection.prepareStatement(
 					"INSERT INTO user VALUES(null, ?, ?)",
@@ -56,22 +54,19 @@ public class SqlUserRepository implements UserLogic {
 	public User getUser(int userId) throws RepositoryException {
 		try (final Connection connection = getConnection()) {
 			try (PreparedStatement stmt = connection
-					.prepareStatement("SELECT * FROM user WHERE id = ?")) {
+					.prepareStatement("SELECT * FROM ecommerceUser WHERE id = ?")) {
 				stmt.setInt(1, userId);
 
 				ResultSet rs = stmt.executeQuery();
 
-				if (rs.next()) {
-					System.out.println(rs.getString("username") + " Shablaa   " + rs.getString("password"));
-					System.out.println(rs.getInt("id"));
-					System.out.println(rs.getString("username"));
-					System.out.println(rs.getArray("username"));
-					System.out.println(rs.getAsciiStream("username"));
-					System.out.println(rs.getNString("username"));
+				while (rs.next()) {
 					
-					System.out.println(rs.getString("password"));
-					User user = new User(rs.getString(2), rs.getString(3));
-					user.setUserId(rs.getInt("id"));
+					int id = rs.getInt(1);
+					String username = rs.getString(2);
+					String password = rs.getString(3);
+					
+					User user = new User(username, password);
+					user.setUserId(id);
 					return user;
 				}
 

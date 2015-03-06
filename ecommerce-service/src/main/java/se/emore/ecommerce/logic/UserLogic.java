@@ -1,6 +1,5 @@
 package se.emore.ecommerce.logic;
 
-import se.emore.ecommerce.Product;
 import se.emore.ecommerce.User;
 import se.emore.ecommerce.exception.RepositoryException;
 

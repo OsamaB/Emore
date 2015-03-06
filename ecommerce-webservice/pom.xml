@@ -70,10 +70,11 @@
 			<artifactId>jersey-container-servlet-core</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.3.1</version>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-impl</artifactId>
+			<version>2.2.11</version>
 		</dependency>
+
 		<dependency>
 			<groupId>se.emore</groupId>
 			<artifactId>ecommerce-service</artifactId>
