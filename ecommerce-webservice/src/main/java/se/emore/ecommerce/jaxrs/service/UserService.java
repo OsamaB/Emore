@@ -19,18 +19,17 @@ public final class UserService {
 
 	SqlUserRepository rep = new SqlUserRepository();
 
-	// String hej = "hej";
-
 	@GET
 	@Path("{userId}")
 	public Response getUser(@PathParam("userId") final int userId)
 			throws RepositoryException {
 		
 		final User user = rep.getUser(userId);
-		
+				
 //		String username = user.getUsername();
 		
-		return Response.ok(user).build();
+		return Response.ok().entity(user.getUsername()).build();
+	
 		
 		
 	}

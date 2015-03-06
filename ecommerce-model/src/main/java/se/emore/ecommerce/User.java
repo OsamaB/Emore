@@ -1,20 +1,25 @@
 package se.emore.ecommerce;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.ArrayList;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
+@XmlRootElement(name="user")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class User {
-	@XmlElement
+	
+	@XmlElement(required=true)
 	private String username;
-	@XmlElement
+	
+	@XmlElement(required=true)
 	private String password;
-	private Map<Integer, Product> shoppingCart = new HashMap<>();
-	private static final AtomicInteger productIdAtomicInteger = new AtomicInteger();
-	@XmlElement
+	
+	ArrayList<Product> products = new ArrayList<>();
+	
+	@XmlElement(required=true)
 	private int id;
 	
 //	@SuppressWarnings("unused")
@@ -39,12 +44,19 @@ public class User {
 		id = sqlUserId;
 	}
 	
-	public Map<Integer, Product> getShoppingCart() {
-		return shoppingCart;
+	public void addProduct(Product product)
+	{
+		products.add(product);
 	}
 	
-	public void addToShoppingCart(Product product) {
-		shoppingCart.put(productIdAtomicInteger.incrementAndGet(), product);
+	public ArrayList<Product> getProducts()
+	{
+		return products;
+	}
+	
+	public void removeProduct(Product product)
+	{
+		products.remove(product);
 	}
 	
 }
