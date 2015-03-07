@@ -2,28 +2,28 @@ package se.emore.ecommerce;
 
 import java.util.ArrayList;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="user")
-@XmlAccessorType(XmlAccessType.FIELD)
-public class User {
+@XmlRootElement()
+public final class User {
 	
-	@XmlElement(required=true)
+	@XmlElement()
 	private String username;
 	
-	@XmlElement(required=true)
+	@XmlElement()
 	private String password;
 	
+	@XmlElement
 	ArrayList<Product> products = new ArrayList<>();
 	
-	@XmlElement(required=true)
+	@XmlElement()
 	private int id;
 	
-//	@SuppressWarnings("unused")
-	public User(String username, String password) {
+	@SuppressWarnings("unused")
+	private User(){}
+	
+	public User(final String username, final String password) {
 		this.username = username;
 		this.password = password;
 	}

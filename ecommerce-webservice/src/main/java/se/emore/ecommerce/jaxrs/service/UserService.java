@@ -28,7 +28,7 @@ public final class UserService {
 				
 //		String username = user.getUsername();
 		
-		return Response.ok().entity(user.getUsername()).build();
+		return Response.ok().entity(user).build();
 	
 		
 		

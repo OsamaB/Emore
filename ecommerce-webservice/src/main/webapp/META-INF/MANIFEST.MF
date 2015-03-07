@@ -5,7 +5,8 @@ Class-Path: jersey-container-servlet-core-2.16.jar javax.inject-2.4.0-
  s-2.4.0-b09.jar aopalliance-repackaged-2.4.0-b09.jar hk2-locator-2.4.
  0-b09.jar javassist-3.18.1-GA.jar osgi-resource-locator-1.0.1.jar jer
  sey-server-2.16.jar jersey-client-2.16.jar jersey-media-jaxb-2.16.jar
-  validation-api-1.1.0.Final.jar jaxb-impl-2.2.11.jar ecommerce-servic
- e-1.0-SNAPSHOT.jar ecommerce-model-1.0-SNAPSHOT.jar mysql-connector-j
- ava-5.1.6.jar
+  validation-api-1.1.0.Final.jar jaxb-core-2.2.7.jar jaxb-api-2.2.7.ja
+ r istack-commons-runtime-2.16.jar jaxb-xjc-2.2.7.jar jaxb-impl-2.2.11
+ .jar genson-1.2.jar ecommerce-service-1.0-SNAPSHOT.jar ecommerce-mode
+ l-1.0-SNAPSHOT.jar mysql-connector-java-5.1.6.jar
 

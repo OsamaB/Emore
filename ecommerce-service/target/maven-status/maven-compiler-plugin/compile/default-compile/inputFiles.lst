@@ -1,8 +1,6 @@
-/Users/ericlantz/Documents/Kurser/web2/projekt/stort-projekt/Emore/ecommerce-service/src/main/java/se/emore/ecommerce/Main.java
-/Users/ericlantz/Documents/Kurser/web2/projekt/stort-projekt/Emore/ecommerce-service/src/main/java/se/emore/ecommerce/repository/SqlOrderRepository.java
-/Users/ericlantz/Documents/Kurser/web2/projekt/stort-projekt/Emore/ecommerce-service/src/main/java/se/emore/ecommerce/exception/RepositoryException.java
-/Users/ericlantz/Documents/Kurser/web2/projekt/stort-projekt/Emore/ecommerce-service/src/main/java/se/emore/ecommerce/logic/OrderLogic.java
-/Users/ericlantz/Documents/Kurser/web2/projekt/stort-projekt/Emore/ecommerce-service/src/main/java/se/emore/ecommerce/repository/SqlUserRepository.java
-/Users/ericlantz/Documents/Kurser/web2/projekt/stort-projekt/Emore/ecommerce-service/src/main/java/se/emore/ecommerce/repository/SqlProductRepository.java
-/Users/ericlantz/Documents/Kurser/web2/projekt/stort-projekt/Emore/ecommerce-service/src/main/java/se/emore/ecommerce/logic/ProductLogic.java
-/Users/ericlantz/Documents/Kurser/web2/projekt/stort-projekt/Emore/ecommerce-service/src/main/java/se/emore/ecommerce/logic/UserLogic.java
+/Users/robinbrandt/development/Emore/ecommerce-service/src/main/java/se/emore/ecommerce/logic/OrderLogic.java
+/Users/robinbrandt/development/Emore/ecommerce-service/src/main/java/se/emore/ecommerce/repository/SqlUserRepository.java
+/Users/robinbrandt/development/Emore/ecommerce-service/src/main/java/se/emore/ecommerce/logic/ProductLogic.java
+/Users/robinbrandt/development/Emore/ecommerce-service/src/main/java/se/emore/ecommerce/exception/RepositoryException.java
+/Users/robinbrandt/development/Emore/ecommerce-service/src/main/java/se/emore/ecommerce/repository/SqlProductRepository.java
+/Users/robinbrandt/development/Emore/ecommerce-service/src/main/java/se/emore/ecommerce/logic/UserLogic.java
