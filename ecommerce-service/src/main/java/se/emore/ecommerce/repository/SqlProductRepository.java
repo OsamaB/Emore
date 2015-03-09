@@ -19,7 +19,7 @@ public class SqlProductRepository implements ProductLogic{
 
 	@Override
 	public int addProduct(Product product) throws RepositoryException {
-		try (final Connection connection = DriverManager.getConnection(URL, username, password))
+		try (final Connection connection = getConnection())
 		{
 			connection.setAutoCommit(false);
 			try (PreparedStatement stmt = connection.prepareStatement("INSERT INTO product VALUES(null, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
@@ -53,7 +53,7 @@ public class SqlProductRepository implements ProductLogic{
 
 	@Override
 	public Product getProduct(int productId) throws RepositoryException {
-		try (final Connection connection = DriverManager.getConnection(URL, username, password))
+		try (final Connection connection = getConnection())
 		{
 			try (PreparedStatement stmt = connection.prepareStatement("SELECT * FROM product WHERE id = ?")) {
 				stmt.setInt(1, productId);
@@ -61,7 +61,9 @@ public class SqlProductRepository implements ProductLogic{
 				ResultSet rs = stmt.executeQuery();
 				
 				if(rs.next()) {
-					return new Product(rs.getString(2), rs.getDouble(3));
+					Product product = new Product(rs.getString(2), rs.getDouble(3));
+					product.setProductId(productId);
+					return product;
 				}
 				
 			}
@@ -77,7 +79,7 @@ public class SqlProductRepository implements ProductLogic{
 
 	@Override
 	public void updateProduct(Product product) throws RepositoryException {
-		try (final Connection connection = DriverManager.getConnection(URL, username, password))
+		try (final Connection connection = getConnection())
 		{
 			connection.setAutoCommit(false);
 			try (PreparedStatement stmt = connection.prepareStatement("UPDATE product SET productName = ?, price = ? WHERE id = ?")) {
@@ -110,7 +112,7 @@ public class SqlProductRepository implements ProductLogic{
 
 	@Override
 	public void removeProduct(int productId) throws RepositoryException {
-		try (final Connection connection = DriverManager.getConnection(URL, username, password))
+		try (final Connection connection = getConnection())
 		{
 			try (PreparedStatement stmt = connection.prepareStatement("DELETE FROM product WHERE id = ?")) {
 				stmt.setInt(1, productId);
@@ -133,6 +135,20 @@ public class SqlProductRepository implements ProductLogic{
 		catch (SQLException e)
 		{
 			throw new RepositoryException("Could not connect to DB", e);
+		}
+	}
+	
+	public Connection getConnection() throws SQLException, RepositoryException
+	{
+		try
+		{
+			Class.forName("com.mysql.jdbc.Driver");
+			return DriverManager.getConnection(URL, username, password);
+
+		}
+		catch (SQLException | ClassNotFoundException e)
+		{
+			throw new RepositoryException("Problem connecting to Database", e);
 		}
 	}
 }

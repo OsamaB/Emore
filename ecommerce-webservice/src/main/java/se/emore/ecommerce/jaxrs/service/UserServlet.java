@@ -25,7 +25,7 @@ public final class UserServlet {
 		
 		System.out.println(user.getId());
 		
-		System.out.println(user.getUsername() + "Är deras username");
+		System.out.println(user.getUsername() + " är deras username");
 		
 		String string = user.getUsername();
 		

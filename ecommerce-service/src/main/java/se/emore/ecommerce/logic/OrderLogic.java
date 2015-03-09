@@ -1,15 +1,12 @@
 package se.emore.ecommerce.logic;
 
-import java.util.ArrayList;
-import java.util.Map;
-
-import se.emore.ecommerce.Product;
+import se.emore.ecommerce.Order;
 import se.emore.ecommerce.User;
 import se.emore.ecommerce.exception.RepositoryException;
 
 public interface OrderLogic {
 	
-	public void addOrder(User user, ArrayList<Product> products) throws RepositoryException;
+	public int createOrder(User user) throws RepositoryException;
 	public void removeOrder(int orderId) throws RepositoryException;
-	public Map<Integer, Product> getOrder(int orderId) throws RepositoryException;
+	public Order getOrder(int orderId) throws RepositoryException;
 }

@@ -3,5 +3,12 @@
 // Mac-files
 .DS_Store
 
-//Compiled files
+// Compiled files
 *.class
+
+// package-files
+*.jar
+*.war
+
+// Personal classpath-files
+.classpath
