@@ -93,7 +93,7 @@ public class SqlProductRepository implements ProductLogic{
 					connection.commit();
 					return;
 				} else {
-					throw new RepositoryException("No user with that Id");
+					throw new RepositoryException("No product with that Id");
 				}
 				
 			}
@@ -121,7 +121,7 @@ public class SqlProductRepository implements ProductLogic{
 				if(affectedRows == 1){
 					return;
 				} else {
-					throw new RepositoryException("No user with that Id");
+					throw new RepositoryException("No product with that Id");
 				}
 				
 			}

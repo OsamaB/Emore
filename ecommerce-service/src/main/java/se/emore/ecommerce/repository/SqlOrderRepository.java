@@ -56,7 +56,6 @@ public class SqlOrderRepository implements OrderLogic
 				{
 					ResultSet rs = stmt.getGeneratedKeys();
 					connection.commit();
-					System.out.println("RS next: " + rs.next());
 					if (rs.next())
 					{
 						System.out.println(rs.getInt(1));
@@ -122,9 +121,38 @@ public class SqlOrderRepository implements OrderLogic
 	}
 
 	@Override
-	public void removeOrder(int orderId) throws RepositoryException
+	public int removeOrder(int orderId) throws RepositoryException
 	{
-		orders.remove(orderId);
+		try (final Connection connection = getConnection())
+		{
+			try (PreparedStatement stmt = connection
+					.prepareStatement("DELETE FROM `order` WHERE orderId = ?"))
+			{
+
+				stmt.setInt(1, orderId);
+				stmt.executeUpdate();
+				return orderId;
+				/*int affectedRows = stmt.executeUpdate();
+				System.out.println(affectedRows);
+				if (affectedRows > 1)
+				{
+				}
+				else
+				{
+					throw new RepositoryException("No order with that Id");
+					
+				}*/
+
+			}
+			catch (SQLException e)
+			{
+				throw new RepositoryException("Invalid sql statement");
+			}
+		}
+		catch (SQLException e)
+		{
+			throw new RepositoryException("Could not connect to DB", e);
+		}
 	}
 
 	public Connection getConnection() throws SQLException, RepositoryException
