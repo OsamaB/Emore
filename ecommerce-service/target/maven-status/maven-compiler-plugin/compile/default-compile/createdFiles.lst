@@ -1,8 +1,0 @@
-se/emore/ecommerce/logic/ProductLogic.class
-se/emore/ecommerce/repository/SqlProductRepository.class
-se/emore/ecommerce/logic/OrderLogic.class
-se/emore/ecommerce/repository/SqlOrderRepository.class
-se/emore/ecommerce/exception/RepositoryException.class
-se/emore/ecommerce/logic/UserLogic.class
-se/emore/ecommerce/Main.class
-se/emore/ecommerce/repository/SqlUserRepository.class

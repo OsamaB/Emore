@@ -2,15 +2,28 @@ package se.emore.ecommerce;
 
 import java.util.ArrayList;
 
-public class User {
-	private String username;
-	private String password;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
-	private int id;
+@XmlRootElement()
+public final class User {
 	
+	@XmlElement()
+	private String username;
+	
+	@XmlElement()
+	private String password;
+	
+	@XmlElement
 	ArrayList<Product> products = new ArrayList<>();
 	
-	public User(String username, String password) {
+	@XmlElement()
+	private int id;
+	
+	@SuppressWarnings("unused")
+	private User(){}
+	
+	public User(final String username, final String password) {
 		this.username = username;
 		this.password = password;
 	}
@@ -31,18 +44,19 @@ public class User {
 		id = sqlUserId;
 	}
 	
-	public ArrayList<Product> getProducts()
-	{
-		return products;
-	}
-	
 	public void addProduct(Product product)
 	{
 		products.add(product);
+	}
+	
+	public ArrayList<Product> getProducts()
+	{
+		return products;
 	}
 	
 	public void removeProduct(Product product)
 	{
 		products.remove(product);
 	}
+	
 }

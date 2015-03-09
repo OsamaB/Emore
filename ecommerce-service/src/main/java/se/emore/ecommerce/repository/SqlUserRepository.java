@@ -65,12 +65,15 @@ public class SqlUserRepository implements UserLogic
 			{
 				stmt.setInt(1, userId);
 				ResultSet rs = stmt.executeQuery();
-				if (rs.next())
-				{
-					System.out.println("User: " + rs.getString("username") + " Pass: " + rs.getString("password"));
-					System.out.println("ID: " + rs.getInt("id"));
-					User user = new User(rs.getString(2), rs.getString(3));
-					user.setUserId(rs.getInt("id"));
+
+				while (rs.next()) {
+					
+					int id = rs.getInt(1);
+					String username = rs.getString(2);
+					String password = rs.getString(3);
+					
+					User user = new User(username, password);
+					user.setUserId(id);
 					return user;
 				}
 			}

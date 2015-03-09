@@ -3,29 +3,33 @@ package se.emore.ecommerce;
 import java.util.ArrayList;
 import java.util.Date;
 
-public final class Order {
-	
+public final class Order
+{
 	private int orderId;
 	private Date date;
-	
+
 	private ArrayList<Product> products = new ArrayList<>();
-		
-	public Order(int orderId, User user) {
+
+	public Order(int orderId, User user)
+	{
 		this.orderId = orderId;
 		this.date = new Date(System.currentTimeMillis());
-		
+
 		setProducts(user.getProducts());
 	}
 
-	public int getOrderId() {
+	public int getOrderId()
+	{
 		return orderId;
 	}
-	
-	public void setOrderId(int sqlOrderId) {
+
+	public void setOrderId(int sqlOrderId)
+	{
 		orderId = sqlOrderId;
 	}
 
-	public Date getDate() {
+	public Date getDate()
+	{
 		return date;
 	}
 

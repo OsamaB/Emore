@@ -2,7 +2,7 @@ package se.emore.ecommerce.logic;
 
 import se.emore.ecommerce.Order;
 import se.emore.ecommerce.User;
-import se.emore.ecommerce.exception.RepositoryException;
+import se.emore.ecommerce.exception.*;
 
 public interface OrderLogic {
 	
