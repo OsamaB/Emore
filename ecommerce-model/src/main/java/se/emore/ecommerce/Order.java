@@ -3,13 +3,21 @@ package se.emore.ecommerce;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlElement;
+
 public final class Order
 {
+	@XmlElement
 	private int orderId;
+	@XmlElement
 	private Date date;
+	@XmlElement
 	private String user;
-
+	@XmlElement
 	private ArrayList<Product> products = new ArrayList<>();
+	
+	@SuppressWarnings("unused")
+	private Order(){}
 
 	public Order(int orderId, User user)
 	{

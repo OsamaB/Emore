@@ -1,67 +1,43 @@
 package se.emore.ecommerce;
 
-public final class Product {
-	private String productName;
-	private int productId;
-	private double price;
-	
-	public Product(String productName, double price) {
-		this.productName = productName;
-		this.price = price;
-	}	
+import javax.xml.bind.annotation.XmlElement;
 
-	public String getProductName() {
+public final class Product
+{
+	@XmlElement
+	private String productName;
+	@XmlElement
+	private int productId;
+	@XmlElement
+	private double productPrice;
+
+	@SuppressWarnings("unused")
+	private Product(){}
+
+	public Product(String productName, double productPrice)
+	{
+		this.productName = productName;
+		this.productPrice = productPrice;
+	}
+
+	public String getProductName()
+	{
 		return productName;
 	}
-	
 
-	public int getProductId() {
+	public int getProductId()
+	{
 		return productId;
 	}
-	
-	public double getProductPrice() {
-		return price;
+
+	public double getProductPrice()
+	{
+		return productPrice;
 	}
-	
-	public void setProductId(int sqlProductId) {
+
+	public void setProductId(int sqlProductId)
+	{
 		productId = sqlProductId;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		long temp;
-		temp = Double.doubleToLongBits(price);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + productId;
-		result = prime * result
-				+ ((productName == null) ? 0 : productName.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Product other = (Product) obj;
-		if (Double.doubleToLongBits(price) != Double
-				.doubleToLongBits(other.price))
-			return false;
-		if (productId != other.productId)
-			return false;
-		if (productName == null) {
-			if (other.productName != null)
-				return false;
-		} else if (!productName.equals(other.productName))
-			return false;
-		return true;
-	}
-
-	
-	
 }

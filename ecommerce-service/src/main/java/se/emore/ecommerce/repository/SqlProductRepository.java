@@ -23,7 +23,7 @@ public class SqlProductRepository implements ProductLogic{
 		try (final Connection connection = getConnection())
 		{
 			connection.setAutoCommit(false);
-			try (PreparedStatement stmt = connection.prepareStatement("INSERT INTO product VALUES(null, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
+			try (PreparedStatement stmt = connection.prepareStatement("INSERT INTO ecommerceProduct VALUES(null, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
 				stmt.setString(1, product.getProductName());
 				stmt.setDouble(2, product.getProductPrice());
 			
@@ -56,7 +56,7 @@ public class SqlProductRepository implements ProductLogic{
 	public Product getProduct(int productId) throws RepositoryException {
 		try (final Connection connection = getConnection())
 		{
-			try (PreparedStatement stmt = connection.prepareStatement("SELECT * FROM product WHERE id = ?")) {
+			try (PreparedStatement stmt = connection.prepareStatement("SELECT * FROM ecommerceProduct WHERE id = ?")) {
 				stmt.setInt(1, productId);
 			
 				ResultSet rs = stmt.executeQuery();
@@ -83,7 +83,7 @@ public class SqlProductRepository implements ProductLogic{
 		{
 			connection.setAutoCommit(false);
 			try (PreparedStatement stmt = connection
-					.prepareStatement("SELECT * FROM product"))
+					.prepareStatement("SELECT * FROM ecommerceProduct"))
 			{
 				ArrayList<Product> products = new ArrayList<>();
 				ResultSet rs = stmt.executeQuery();
@@ -113,7 +113,7 @@ public class SqlProductRepository implements ProductLogic{
 		try (final Connection connection = getConnection())
 		{
 			connection.setAutoCommit(false);
-			try (PreparedStatement stmt = connection.prepareStatement("UPDATE product SET productName = ?, price = ? WHERE id = ?")) {
+			try (PreparedStatement stmt = connection.prepareStatement("UPDATE ecommerceProduct SET productName = ?, productPrice = ? WHERE id = ?")) {
 				stmt.setInt(3, productId);
 				stmt.setString(1, product.getProductName());
 				stmt.setDouble(2, product.getProductPrice());
@@ -145,7 +145,7 @@ public class SqlProductRepository implements ProductLogic{
 	public void removeProduct(int productId) throws RepositoryException {
 		try (final Connection connection = getConnection())
 		{
-			try (PreparedStatement stmt = connection.prepareStatement("DELETE FROM product WHERE id = ?")) {
+			try (PreparedStatement stmt = connection.prepareStatement("DELETE FROM ecommerceProduct WHERE id = ?")) {
 				stmt.setInt(1, productId);
 				int affectedRows = stmt.executeUpdate();
 				

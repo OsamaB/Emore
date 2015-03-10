@@ -40,7 +40,7 @@ public class SqlOrderRepository implements OrderLogic
 		try (final Connection connection = getConnection())
 		{
 			connection.setAutoCommit(false);
-			try (PreparedStatement stmt = connection.prepareStatement("INSERT INTO `order` VALUES(?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS))
+			try (PreparedStatement stmt = connection.prepareStatement("INSERT INTO ecommerceOrder VALUES(?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS))
 			{
 
 				for (Product product : user.getProducts())
@@ -87,7 +87,7 @@ public class SqlOrderRepository implements OrderLogic
 		{
 			connection.setAutoCommit(false);
 			try (PreparedStatement stmt = connection
-					.prepareStatement("SELECT * FROM `order` WHERE userId = ?"))
+					.prepareStatement("SELECT * FROM ecommerceOrder WHERE userId = ?"))
 			{
 				stmt.setInt(1, userId);
 				ResultSet rs = stmt.executeQuery();
@@ -174,7 +174,7 @@ public class SqlOrderRepository implements OrderLogic
 		{
 			connection.setAutoCommit(false);
 			try (PreparedStatement stmt = connection
-					.prepareStatement("SELECT * FROM `order` WHERE orderId = ?"))
+					.prepareStatement("SELECT * FROM ecommerceOrder WHERE orderId = ?"))
 			{
 				stmt.setInt(1, orderId);
 				ResultSet rs = stmt.executeQuery();
@@ -216,7 +216,7 @@ public class SqlOrderRepository implements OrderLogic
 		try (final Connection connection = getConnection())
 		{
 			try (PreparedStatement stmt = connection
-					.prepareStatement("DELETE FROM `order` WHERE orderId = ?"))
+					.prepareStatement("DELETE FROM ecommerceOrder WHERE orderId = ?"))
 			{
 
 				stmt.setInt(1, orderId);

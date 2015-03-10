@@ -6,10 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
-import se.emore.ecommerce.*;
+import se.emore.ecommerce.User;
 import se.emore.ecommerce.exception.RepositoryException;
-import se.emore.ecommerce.logic.*;
+import se.emore.ecommerce.logic.UserLogic;
 
 public class SqlUserRepository implements UserLogic
 {
@@ -25,7 +26,7 @@ public class SqlUserRepository implements UserLogic
 		{
 			connection.setAutoCommit(false);
 			try (PreparedStatement stmt = connection.prepareStatement(
-					"INSERT INTO user VALUES(null, ?, ?)",
+					"INSERT INTO ecommerceUser VALUES(null, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS)) {
 				stmt.setString(1, user.getUsername());
 				stmt.setString(2, user.getPassword());
@@ -56,13 +57,47 @@ public class SqlUserRepository implements UserLogic
 	}
 
 	@Override
+	public ArrayList<User> getAllUsers() throws RepositoryException
+	{
+		try (final Connection connection = getConnection())
+		{
+			connection.setAutoCommit(false);
+			try (PreparedStatement stmt = connection
+					.prepareStatement("SELECT * FROM ecommerceUser"))
+			{
+				
+				ResultSet rs = stmt.executeQuery();
+				ArrayList<User> users = new ArrayList<>();
+
+				while (rs.next()) {
+					
+					int id = rs.getInt(1);
+					String username = rs.getString(2);
+					String password = rs.getString(3);
+					
+					User user = new User(username, password);
+					user.setUserId(id);
+					users.add(user);
+				}
+				return users;
+			}catch(SQLException e)
+			{
+			throw new RepositoryException("could not get User");
+		}
+		}catch (SQLException e)
+		{
+			throw new RepositoryException("Could not connect to DB", e);
+		}
+	}
+	
+	@Override
 	public User getUser(int userId) throws RepositoryException
 	{
 		try (final Connection connection = getConnection())
 		{
 			connection.setAutoCommit(false);
 			try (PreparedStatement stmt = connection
-					.prepareStatement("SELECT * FROM user WHERE id = ?"))
+					.prepareStatement("SELECT * FROM ecommerceUser WHERE id = ?"))
 			{
 				stmt.setInt(1, userId);
 				ResultSet rs = stmt.executeQuery();
@@ -91,7 +126,7 @@ public class SqlUserRepository implements UserLogic
 		try (final Connection connection = getConnection()) {
 			connection.setAutoCommit(false);
 			try (PreparedStatement stmt = connection
-					.prepareStatement("UPDATE user SET username = ?, password = ? WHERE id = ?")) {
+					.prepareStatement("UPDATE ecommerceUser SET username = ?, password = ? WHERE id = ?")) {
 				stmt.setInt(3, userId);
 				stmt.setString(1, user.getUsername());
 				stmt.setString(2, user.getPassword());
@@ -123,7 +158,7 @@ public class SqlUserRepository implements UserLogic
 	public int removeUser(int userId) throws RepositoryException {
 		try (final Connection connection = getConnection()) {
 			try (PreparedStatement stmt = connection
-					.prepareStatement("DELETE FROM user WHERE id = ?")) {
+					.prepareStatement("DELETE FROM ecommerceUser WHERE id = ?")) {
 				stmt.setInt(1, userId);
 
 				int affectedRows = stmt.executeUpdate();
@@ -152,7 +187,7 @@ public class SqlUserRepository implements UserLogic
 		try (final Connection connection = getConnection())
 		{
 			try (PreparedStatement stmt = connection
-					.prepareStatement("DELETE FROM user WHERE username = ?", Statement.RETURN_GENERATED_KEYS))
+					.prepareStatement("DELETE FROM ecommerceUser WHERE username = ?", Statement.RETURN_GENERATED_KEYS))
 			{
 			
 				stmt.setString(1, userName);
