@@ -7,6 +7,7 @@ public final class Order
 {
 	private int orderId;
 	private Date date;
+	private String user;
 
 	private ArrayList<Product> products = new ArrayList<>();
 
@@ -28,6 +29,16 @@ public final class Order
 		orderId = sqlOrderId;
 	}
 
+	public String getUser()
+	{
+		return user;
+	}
+
+	public void setUser(String user)
+	{
+		this.user = user;
+	}
+	
 	public Date getDate()
 	{
 		return date;

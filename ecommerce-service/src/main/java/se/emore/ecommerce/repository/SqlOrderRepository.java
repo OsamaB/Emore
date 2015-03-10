@@ -6,9 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import se.emore.ecommerce.Order;
@@ -24,12 +23,16 @@ public class SqlOrderRepository implements OrderLogic
 	private final String username = "root";
 	private final String password = "";
 
-	private Map<Integer, Map<Integer, Product>> orders = new HashMap<>();
 	private AtomicInteger atomicInteger = new AtomicInteger(1000);
 
 	@Override
-	public int createOrder(User user) throws RepositoryException
+	public int createOrder(User user, int[] productIds) throws RepositoryException
 	{
+		for(int productId : productIds)
+		{
+			user.addProduct(new SqlProductRepository().getProduct(productId));
+		}
+		
 		Order order = new Order(atomicInteger.incrementAndGet(), user);
 
 		java.sql.Date sqlDate = new java.sql.Date(new java.util.Date().getTime());
@@ -48,17 +51,15 @@ public class SqlOrderRepository implements OrderLogic
 					stmt.setDate(4, sqlDate);
 					stmt.addBatch();
 				}
-				stmt.executeBatch();
+				
+				int affectedRows = stmt.executeBatch().length;
 
-				int affectedRows = stmt.executeUpdate();
-
-				if (affectedRows == 1)
+				if (affectedRows > 0)
 				{
 					ResultSet rs = stmt.getGeneratedKeys();
 					connection.commit();
 					if (rs.next())
 					{
-						System.out.println(rs.getInt(1));
 						return rs.getInt(1);
 					}
 					else
@@ -80,6 +81,93 @@ public class SqlOrderRepository implements OrderLogic
 	}
 
 	@Override
+	public Order[] getUserOrders(int userId) throws RepositoryException
+	{
+		try (final Connection connection = getConnection())
+		{
+			connection.setAutoCommit(false);
+			try (PreparedStatement stmt = connection
+					.prepareStatement("SELECT * FROM `order` WHERE userId = ?"))
+			{
+				stmt.setInt(1, userId);
+				ResultSet rs = stmt.executeQuery();
+
+
+				if (rs.next())
+				{
+
+					User user = new SqlUserRepository().getUser(userId);
+
+					ArrayList<Order> orderList = new ArrayList<>();
+					
+					Order order;
+					ArrayList<Product> products = new ArrayList<>();
+					
+					int thisOrderId = rs.getInt("orderId");
+					int productId = rs.getInt(3);
+					Product product = new SqlProductRepository().getProduct(productId);
+					
+					products.add(product);
+					
+					Date date = rs.getDate(4);
+					
+					while (rs.next())
+					{
+						date = rs.getDate(4);
+						
+						int orderId = rs.getInt("orderId");
+						
+						if(thisOrderId == orderId)
+						{
+							productId = rs.getInt(3);
+							product = new SqlProductRepository().getProduct(productId);
+							
+							products.add(product);
+							thisOrderId = orderId;
+						}
+						else
+						{
+							order = new Order(orderId, user);
+							order.setProducts(products);
+							order.setUser(user.getUsername());
+							order.setDate(date);
+							orderList.add(order);
+							
+							products.clear();
+							
+							productId = rs.getInt(3);
+							product = new SqlProductRepository().getProduct(productId);
+							
+							products.add(product);
+
+							thisOrderId = orderId;
+						}
+					}
+					order = new Order(thisOrderId, user);
+					order.setProducts(products);
+					order.setUser(user.getUsername());
+					order.setDate(date);
+					orderList.add(order);
+					
+					Order[] orders = new Order[orderList.size()];
+					orderList.toArray(orders);
+					for(Order order2 : orders)
+					{
+						System.out.println("I ordersArray: " + order2 + ". Med storlek: " + orders.length + ".. Men OrderList: " + orderList.size());
+						
+					}
+					return orders;
+				}
+			}
+			throw new RepositoryException("Could not get user");
+		}
+		catch (SQLException e)
+		{
+			throw new RepositoryException("Could not connect to DB", e);
+		}
+	}
+	
+	@Override
 	public Order getOrder(int orderId) throws RepositoryException
 	{
 		try (final Connection connection = getConnection())
@@ -98,15 +186,17 @@ public class SqlOrderRepository implements OrderLogic
 
 					Date date = rs.getDate(4);
 
-					int productId = rs.getInt(3);
-					Product product = new SqlProductRepository().getProduct(productId);
 
 					while (rs.next())
 					{
+						int productId = rs.getInt(3);
+						Product product = new SqlProductRepository().getProduct(productId);
+
 						user.addProduct(product);
 					}
 
 					Order order = new Order(orderId, user);
+					order.setUser(user.getUsername());
 					order.setDate(date);
 
 					return order;
@@ -132,16 +222,6 @@ public class SqlOrderRepository implements OrderLogic
 				stmt.setInt(1, orderId);
 				stmt.executeUpdate();
 				return orderId;
-				/*int affectedRows = stmt.executeUpdate();
-				System.out.println(affectedRows);
-				if (affectedRows > 1)
-				{
-				}
-				else
-				{
-					throw new RepositoryException("No order with that Id");
-					
-				}*/
 
 			}
 			catch (SQLException e)

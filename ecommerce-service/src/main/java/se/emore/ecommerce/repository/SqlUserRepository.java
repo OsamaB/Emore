@@ -24,8 +24,9 @@ public class SqlUserRepository implements UserLogic
 		try (final Connection connection = getConnection())
 		{
 			connection.setAutoCommit(false);
-			try (PreparedStatement stmt = connection.prepareStatement("INSERT INTO user VALUES(null, ?, ?)", Statement.RETURN_GENERATED_KEYS))
-			{
+			try (PreparedStatement stmt = connection.prepareStatement(
+					"INSERT INTO user VALUES(null, ?, ?)",
+					Statement.RETURN_GENERATED_KEYS)) {
 				stmt.setString(1, user.getUsername());
 				stmt.setString(2, user.getPassword());
 
@@ -67,11 +68,11 @@ public class SqlUserRepository implements UserLogic
 				ResultSet rs = stmt.executeQuery();
 
 				while (rs.next()) {
-					
+
 					int id = rs.getInt(1);
 					String username = rs.getString(2);
 					String password = rs.getString(3);
-					
+
 					User user = new User(username, password);
 					user.setUserId(id);
 					return user;
@@ -86,15 +87,12 @@ public class SqlUserRepository implements UserLogic
 	}
 
 	@Override
-	public int updateUser(User user) throws RepositoryException
-	{
-		try (final Connection connection = getConnection())
-		{
+	public int updateUser(int userId, User user) throws RepositoryException {
+		try (final Connection connection = getConnection()) {
 			connection.setAutoCommit(false);
 			try (PreparedStatement stmt = connection
-					.prepareStatement("UPDATE user SET username = ?, password = ? WHERE id = ?"))
-			{
-				stmt.setInt(3, user.getId());
+					.prepareStatement("UPDATE user SET username = ?, password = ? WHERE id = ?")) {
+				stmt.setInt(3, userId);
 				stmt.setString(1, user.getUsername());
 				stmt.setString(2, user.getPassword());
 
@@ -122,13 +120,10 @@ public class SqlUserRepository implements UserLogic
 	}
 
 	@Override
-	public int removeUser(int userId) throws RepositoryException
-	{
-		try (final Connection connection = getConnection())
-		{
+	public int removeUser(int userId) throws RepositoryException {
+		try (final Connection connection = getConnection()) {
 			try (PreparedStatement stmt = connection
-					.prepareStatement("DELETE FROM user WHERE id = ?"))
-			{
+					.prepareStatement("DELETE FROM user WHERE id = ?")) {
 				stmt.setInt(1, userId);
 
 				int affectedRows = stmt.executeUpdate();
@@ -197,3 +192,4 @@ public class SqlUserRepository implements UserLogic
 		}
 	}
 }
+

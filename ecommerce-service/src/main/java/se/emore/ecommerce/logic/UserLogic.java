@@ -7,7 +7,7 @@ public interface UserLogic {
 	
 	public int addUser(User user) throws RepositoryException;
 	public User getUser(int userId) throws RepositoryException;
-	public int updateUser(User user) throws RepositoryException;
+	public int updateUser(int userId, User user) throws RepositoryException;
 	public int removeUser(int userId) throws RepositoryException;
 	
 }

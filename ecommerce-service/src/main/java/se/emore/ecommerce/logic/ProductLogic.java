@@ -7,6 +7,6 @@ public interface ProductLogic {
 	
 	public int addProduct(Product product) throws RepositoryException;
 	public Product getProduct(int productId) throws RepositoryException;
-	public void updateProduct(Product product) throws RepositoryException;
+	public void updateProduct(int productId, Product product) throws RepositoryException;
 	public void removeProduct(int productId) throws RepositoryException;
 }
