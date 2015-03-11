@@ -5,10 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import se.emore.ecommerce.Order;
 import se.emore.ecommerce.Product;
@@ -23,49 +21,58 @@ public class SqlOrderRepository implements OrderLogic
 	private final String username = "root";
 	private final String password = "";
 
-	private AtomicInteger atomicInteger = new AtomicInteger(1000);
-
 	@Override
 	public int createOrder(User user, int[] productIds) throws RepositoryException
 	{
-		for(int productId : productIds)
+		for (int productId : productIds)
 		{
 			user.addProduct(new SqlProductRepository().getProduct(productId));
 		}
-		
-		Order order = new Order(atomicInteger.incrementAndGet(), user);
 
 		java.sql.Date sqlDate = new java.sql.Date(new java.util.Date().getTime());
+
+		int orderId = 0;
 
 		try (final Connection connection = getConnection())
 		{
 			connection.setAutoCommit(false);
-			try (PreparedStatement stmt = connection.prepareStatement("INSERT INTO ecommerceOrder VALUES(?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS))
+			try (PreparedStatement stmt = connection
+					.prepareStatement("SELECT * FROM ecommerceOrder"))
 			{
+				ResultSet rs = stmt.executeQuery();
 
+				while (rs.next())
+				{
+					orderId = rs.getInt(1);
+					if (orderId > 0)
+					{
+						orderId++;
+					}
+					else
+					{
+						orderId = 1;
+					}
+				}
+			}
+
+			connection.setAutoCommit(false);
+			try (PreparedStatement stmt = connection.prepareStatement("INSERT INTO ecommerceOrder VALUES(?, ?, ?, ?)"))
+			{
 				for (Product product : user.getProducts())
 				{
-					stmt.setInt(1, order.getOrderId());
+					stmt.setInt(1, orderId);
 					stmt.setInt(2, user.getId());
 					stmt.setInt(3, product.getProductId());
 					stmt.setDate(4, sqlDate);
 					stmt.addBatch();
 				}
-				
 				int affectedRows = stmt.executeBatch().length;
-
 				if (affectedRows > 0)
 				{
-					ResultSet rs = stmt.getGeneratedKeys();
+
 					connection.commit();
-					if (rs.next())
-					{
-						return rs.getInt(1);
-					}
-					else
-					{
-						return 0;
-					}
+					return orderId;
+
 				}
 			}
 			catch (SQLException e)
@@ -92,36 +99,35 @@ public class SqlOrderRepository implements OrderLogic
 				stmt.setInt(1, userId);
 				ResultSet rs = stmt.executeQuery();
 
-
 				if (rs.next())
 				{
 
 					User user = new SqlUserRepository().getUser(userId);
 
 					ArrayList<Order> orderList = new ArrayList<>();
-					
+
 					Order order;
 					ArrayList<Product> products = new ArrayList<>();
-					
+
 					int thisOrderId = rs.getInt("orderId");
 					int productId = rs.getInt(3);
 					Product product = new SqlProductRepository().getProduct(productId);
-					
+
 					products.add(product);
-					
+
 					Date date = rs.getDate(4);
-					
+
 					while (rs.next())
 					{
 						date = rs.getDate(4);
-						
+
 						int orderId = rs.getInt("orderId");
-						
-						if(thisOrderId == orderId)
+
+						if (thisOrderId == orderId)
 						{
 							productId = rs.getInt(3);
 							product = new SqlProductRepository().getProduct(productId);
-							
+
 							products.add(product);
 							thisOrderId = orderId;
 						}
@@ -132,12 +138,12 @@ public class SqlOrderRepository implements OrderLogic
 							order.setUser(user.getUsername());
 							order.setDate(date);
 							orderList.add(order);
-							
+
 							products.clear();
-							
+
 							productId = rs.getInt(3);
 							product = new SqlProductRepository().getProduct(productId);
-							
+
 							products.add(product);
 
 							thisOrderId = orderId;
@@ -148,14 +154,10 @@ public class SqlOrderRepository implements OrderLogic
 					order.setUser(user.getUsername());
 					order.setDate(date);
 					orderList.add(order);
-					
+
 					Order[] orders = new Order[orderList.size()];
 					orderList.toArray(orders);
-					for(Order order2 : orders)
-					{
-						System.out.println("I ordersArray: " + order2 + ". Med storlek: " + orders.length + ".. Men OrderList: " + orderList.size());
-						
-					}
+
 					return orders;
 				}
 			}
@@ -166,7 +168,7 @@ public class SqlOrderRepository implements OrderLogic
 			throw new RepositoryException("Could not connect to DB", e);
 		}
 	}
-	
+
 	@Override
 	public Order getOrder(int orderId) throws RepositoryException
 	{
@@ -183,14 +185,15 @@ public class SqlOrderRepository implements OrderLogic
 				{
 					int userId = rs.getInt("userId");
 					User user = new SqlUserRepository().getUser(userId);
-
+					int productId = rs.getInt("productId");
+					Product product = new SqlProductRepository().getProduct(productId);
 					Date date = rs.getDate(4);
-
+					user.addProduct(product);
 
 					while (rs.next())
 					{
-						int productId = rs.getInt(3);
-						Product product = new SqlProductRepository().getProduct(productId);
+						productId = rs.getInt("productId");
+						product = new SqlProductRepository().getProduct(productId);
 
 						user.addProduct(product);
 					}
@@ -202,7 +205,7 @@ public class SqlOrderRepository implements OrderLogic
 					return order;
 				}
 			}
-			throw new RepositoryException("Could not get user");
+			throw new RepositoryException("Could not get order");
 		}
 		catch (SQLException e)
 		{

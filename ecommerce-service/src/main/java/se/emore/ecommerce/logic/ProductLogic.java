@@ -5,8 +5,8 @@ import se.emore.ecommerce.exception.RepositoryException;
 
 public interface ProductLogic {
 	
-	public int addProduct(Product product) throws RepositoryException;
-	public Product getProduct(int productId) throws RepositoryException;
-	public void updateProduct(int productId, Product product) throws RepositoryException;
-	public void removeProduct(int productId) throws RepositoryException;
+	int addProduct(Product product) throws RepositoryException;
+	Product getProduct(int productId) throws RepositoryException;
+	void updateProduct(int productId, Product product) throws RepositoryException;
+	void removeProduct(int productId) throws RepositoryException;
 }

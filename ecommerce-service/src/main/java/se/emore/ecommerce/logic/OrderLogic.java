@@ -6,8 +6,8 @@ import se.emore.ecommerce.exception.*;
 
 public interface OrderLogic {
 	
-	public int createOrder(User user, int[] productIds) throws RepositoryException;
-	public Order getOrder(int orderId) throws RepositoryException;
-	public Order[] getUserOrders(int userId) throws RepositoryException;
-	public int removeOrder(int orderId) throws RepositoryException;
+	int createOrder(User user, int[] productIds) throws RepositoryException;
+	Order getOrder(int orderId) throws RepositoryException;
+	Order[] getUserOrders(int userId) throws RepositoryException;
+	int removeOrder(int orderId) throws RepositoryException;
 }

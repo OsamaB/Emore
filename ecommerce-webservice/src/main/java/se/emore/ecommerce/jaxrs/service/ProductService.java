@@ -40,7 +40,7 @@ public final class ProductService
 		String id = "" + product.getProductId();
 		final URI location = uriInfo.getAbsolutePathBuilder().path(id).build();
 		return Response.status(Status.CREATED).location(location).build();
-		
+
 	}
 
 	@GET
@@ -53,12 +53,9 @@ public final class ProductService
 
 	@GET
 	@Path("{productId}")
-	public Response getProduct(@PathParam("productId") final int productId)
-			throws RepositoryException
+	public Response getProduct(@PathParam("productId") final int productId)	throws RepositoryException
 	{
-
 		final Product product = rep.getProduct(productId);
-
 		return Response.ok(product).build();
 	}
 
@@ -67,7 +64,6 @@ public final class ProductService
 	public Response updateProduct(@PathParam("productId") final int productId, Product product) throws RepositoryException
 	{
 		rep.updateProduct(productId, product);
-
 		return Response.ok().build();
 	}
 
@@ -76,7 +72,6 @@ public final class ProductService
 	public Response removeProduct(@PathParam("productId") final int productId) throws RepositoryException
 	{
 		rep.removeProduct(productId);
-
 		return Response.ok().build();
 	}
 }
